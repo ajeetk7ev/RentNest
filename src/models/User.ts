@@ -3,28 +3,29 @@ import mongoose, { Schema, Document } from "mongoose";
 export interface IUser extends Document {
   firstname: string;
   lastname: string;
-  email: string;
-  password: string;
-  contactNo?: string;
+  email?: string;
+  phone?: string;
   image?: string; 
-  resetPasswordToken?: string | null;
-  resetPasswordExpire?: Date | null;
+  verified:boolean;
   listings?:mongoose.Types.ObjectId[]
+  roommates?:mongoose.Types.ObjectId[]
 }
 
 const userSchema = new Schema<IUser>(
   {
     firstname: { type: String, required: true },
     lastname: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    password: { type: String, required: true },
-    contactNo: { type: String, default: "" },
+    email: { type: String, unique: true },
+    phone: { type: String, unique: true},
     image: { type: String, default: "" }, 
-    resetPasswordToken: { type: String, default: null },
-    resetPasswordExpire: { type: Date, default: null },
+    verified:{type:Boolean, default:false},
     listings:[{
         type:Schema.Types.ObjectId,
         ref:"Listing"
+    }],
+    roommates:[{
+        type:Schema.Types.ObjectId,
+        ref:"Roommate"
     }]
   },
   { timestamps: true }
