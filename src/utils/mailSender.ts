@@ -36,8 +36,9 @@ export const sendOtpVerificationEmail = async (email: string, otp: string) => {
       subject: "Otp Verification Email",
       html: otpTemplate(otp),
     });
-    return mailResponse;
+    return true;
   } catch (error) {
     console.log("Error occurred while sending email: ", error);
+    return false;
   }
 };

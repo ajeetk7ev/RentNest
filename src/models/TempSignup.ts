@@ -6,8 +6,8 @@ export interface ITempSignup extends Document {
   otp: string;
   expiresAt: Date;
   userData: {
-    firstName: string;
-    lastName: string;
+    firstname: string;
+    lastname: string;
     email?: string;
     phone?: string;
   };
@@ -18,13 +18,12 @@ const tempSignupSchema = new Schema<ITempSignup>({
   otp: { type: String, required: true },
   expiresAt: { type: Date, required: true },
   userData: {
-    firstName: { type: String, required: true },
-    lastName: { type: String, required: true },
+    firstname: { type: String, required: true },
+    lastname: { type: String, required: true },
     email: { type: String },
     phone: { type: String },
   },
 });
 
-tempSignupSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.model<ITempSignup>("TempSignup", tempSignupSchema);
